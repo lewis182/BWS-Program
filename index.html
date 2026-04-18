@@ -6,176 +6,827 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Chest Program">
-<meta name="theme-color" content="#4f46e5">
+<meta name="theme-color" content="#14110F">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 180%22><rect width=%22180%22 height=%22180%22 rx=%2236%22 fill=%22%234f46e5%22/><text x=%2290%22 y=%22108%22 font-family=%22-apple-system,Helvetica%22 font-size=%2272%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22white%22>BWS</text><text x=%2290%22 y=%22148%22 font-family=%22-apple-system,Helvetica%22 font-size=%2220%22 text-anchor=%22middle%22 fill=%22%23c7d2fe%22>CHEST 10W</text></svg>">
-<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%234f46e5%22/><text x=%2232%22 y=%2240%22 font-family=%22-apple-system%22 font-size=%2228%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22white%22>B</text></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 180%22><rect width=%22180%22 height=%22180%22 rx=%2240%22 fill=%22%2314110F%22/><circle cx=%2290%22 cy=%2290%22 r=%2222%22 fill=%22%23FF6B1A%22/></svg>">
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%2314110F%22/><circle cx=%2232%22 cy=%2232%22 r=%228%22 fill=%22%23FF6B1A%22/></svg>">
 <title>Chest Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: light; }
+  :root {
+    color-scheme: dark;
+    --bg: #0A0806;
+    --bg-1: #14110F;
+    --bg-2: #1C1815;
+    --bg-3: #24201C;
+    --bg-4: #2E2924;
+    --line: rgba(255, 240, 220, 0.08);
+    --line-strong: rgba(255, 240, 220, 0.14);
+    --ink: #F4EFE8;
+    --ink-2: #C8BFB4;
+    --ink-3: #8A8177;
+    --ink-4: #5A544C;
+    --accent: #FF6B1A;
+    --accent-2: #FF8A3D;
+    --accent-tint: rgba(255, 107, 26, 0.12);
+    --accent-soft: rgba(255, 107, 26, 0.18);
+    --good: #7FBF7F;
+    --safe-top: env(safe-area-inset-top);
+    --safe-bot: env(safe-area-inset-bottom);
+    --safe-left: env(safe-area-inset-left);
+    --safe-right: env(safe-area-inset-right);
+  }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: #f8fafc; color: #0f172a; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+    min-height: 100vh;
+  }
+  body {
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
   button { font: inherit; cursor: pointer; background: none; border: 0; color: inherit; padding: 0; }
   input { font: inherit; }
-  a { color: inherit; }
-  /* Layout */
-  .wrap { max-width: 780px; margin: 0 auto; padding: 0 16px; }
-  header.top { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #e2e8f0; }
-  header.top .wrap { padding-top: 12px; padding-bottom: 12px; }
-  h1 { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
-  .subtle { font-size: 12px; color: #64748b; margin-top: 2px; }
-  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
-  .btn { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; border: 1px solid #cbd5e1; color: #334155; background: #fff; }
-  .btn:hover { background: #f1f5f9; }
-  .btn.danger { border-color: #fecaca; color: #b91c1c; }
-  .btn.danger:hover { background: #fef2f2; }
-  .tabs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; margin-top: 12px; }
-  .tab { padding: 6px 4px; border-radius: 6px; font-size: 12px; font-weight: 500; background: #f1f5f9; color: #334155; text-align: center; line-height: 1.1; }
-  .tab small { display: block; font-weight: 400; font-size: 10px; opacity: 0.7; }
-  .tab.active { background: #4f46e5; color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.1); }
-  .days { display: flex; gap: 8px; margin-top: 8px; }
-  .day { flex: 1; padding: 8px 0; border-radius: 6px; font-size: 14px; font-weight: 600; background: #fff; color: #334155; box-shadow: 0 0 0 1px #cbd5e1 inset; text-align: center; }
-  .day.active { background: #0f172a; color: #fff; box-shadow: none; }
-  main.wrap { padding-top: 18px; padding-bottom: 40px; display: flex; flex-direction: column; gap: 16px; }
-  .card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 0 0 1px #e2e8f0; }
-  .card h2 { font-size: 20px; font-weight: 700; margin: 0; }
-  .card .meta { font-size: 12px; color: #64748b; font-weight: 500; }
-  .progress-wrap { margin-top: 12px; }
-  .progress-meta { display: flex; justify-content: space-between; font-size: 12px; color: #475569; margin-bottom: 4px; }
-  .progress-bar { height: 8px; background: #f1f5f9; border-radius: 999px; overflow: hidden; }
-  .progress-fill { height: 100%; background: #4f46e5; border-radius: 999px; transition: width 200ms ease; }
-  .warm { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 14px; }
-  .warm > button { width: 100%; display: flex; justify-content: space-between; align-items: center; color: #78350f; font-weight: 600; }
-  .warm .body { margin-top: 12px; font-size: 14px; color: #78350f; display: flex; flex-direction: column; gap: 12px; }
-  .warm ul { margin: 4px 0 0 20px; padding: 0; }
-  .warm table { width: 100%; border-collapse: collapse; font-size: 12px; background: #fff; border: 1px solid #fcd34d; border-radius: 4px; overflow: hidden; }
-  .warm th, .warm td { padding: 4px 8px; text-align: left; border-top: 1px solid #fde68a; }
-  .warm th { background: #fef3c7; font-weight: 600; }
-  .ex { background: #fff; border-radius: 8px; padding: 14px; box-shadow: 0 0 0 1px #e2e8f0; display: flex; flex-direction: column; gap: 8px; }
-  .ex-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
-  .ex-title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-  .ex h4 { margin: 0; font-size: 16px; font-weight: 600; }
-  .pill { display: inline-flex; align-items: center; gap: 4px; background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 999px; border: 1px solid #c7d2fe; text-decoration: none; }
-  .pill:hover { background: #e0e7ff; }
-  .swap-note { font-size: 11px; color: #64748b; font-style: italic; margin-top: 2px; }
-  .ex-meta { font-size: 12px; color: #64748b; white-space: nowrap; }
-  .ex-meta strong { color: #334155; font-weight: 600; }
-  .notes { font-size: 14px; color: #475569; margin: 0; }
-  .sets-head { display: flex; gap: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; font-weight: 500; padding-bottom: 4px; border-bottom: 1px solid #f1f5f9; }
-  .col-set { width: 32px; text-align: center; }
-  .col-w, .col-r { width: 80px; }
-  .set-row { display: flex; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
-  .set-row:last-child { border-bottom: 0; }
-  .set-row .col-set { font-size: 13px; font-weight: 600; color: #64748b; }
-  .set-row input[type=number] { width: 80px; padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; background: #fff; }
-  .set-row input[type=number]:focus { outline: 0; border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,.25); }
-  .set-row label { margin-left: auto; display: inline-flex; gap: 4px; align-items: center; font-size: 13px; color: #475569; cursor: pointer; }
-  .set-row input[type=checkbox] { width: 20px; height: 20px; accent-color: #4f46e5; }
-  .superset { background: #eef2ff66; border: 2px solid #c7d2fe; border-radius: 8px; padding: 14px; }
-  .superset-head { display: flex; gap: 8px; align-items: center; font-size: 13px; color: #475569; flex-wrap: wrap; margin-bottom: 10px; }
-  .ss-badge { background: #4f46e5; color: #fff; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 999px; }
-  .superset .ex { box-shadow: 0 0 0 1px #e2e8f0; }
-  footer { font-size: 11px; color: #94a3b8; text-align: center; line-height: 1.5; padding-top: 12px; }
-  footer code { background: #f1f5f9; padding: 0 4px; border-radius: 4px; font-size: 11px; }
-  .hidden { display: none; }
+  a { color: inherit; text-decoration: none; }
 
-/* ===== iPad PWA enhancements ===== */
-:root { --safe-top: env(safe-area-inset-top); --safe-bot: env(safe-area-inset-bottom);
-        --safe-left: env(safe-area-inset-left); --safe-right: env(safe-area-inset-right); }
-html, body { min-height: 100vh; -webkit-text-size-adjust: 100%; touch-action: manipulation; }
-body { padding-left: var(--safe-left); padding-right: var(--safe-right); }
-header.top { padding-top: var(--safe-top); }
-main.wrap { padding-bottom: calc(40px + var(--safe-bot)); }
-/* Prevent iOS form zoom: inputs must be >= 16px */
-.set-row input[type=number] { font-size: 16px; }
-input[type=number] { font-size: 16px; }
-/* iPad-style tap feedback */
-.btn:active, .tab:active, .day:active, .pill:active, .warm > button:active { opacity: 0.65; }
-/* Landscape two-column layout on iPad (>=900px) */
-@media (min-width: 900px) and (orientation: landscape) {
-  .wrap { max-width: 1100px; padding: 0 24px; }
-  main.wrap { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
-  #summary { grid-column: 1 / -1; }
-  #warmup { grid-column: 1; position: sticky; top: calc(180px + var(--safe-top)); align-self: start; max-height: calc(100vh - 200px - var(--safe-top)); overflow-y: auto; }
-  #workout { grid-column: 2; display: flex; flex-direction: column; gap: 14px; }
-}
-@media (min-width: 900px) and (orientation: portrait) {
-  .wrap { max-width: 780px; }
-}
-/* Larger tappable pill on touch devices */
-@media (hover: none) and (pointer: coarse) {
-  .pill { padding: 6px 12px; font-size: 13px; }
-  .set-row input[type=number] { padding: 8px 10px; }
-  .tab { padding: 10px 4px; font-size: 13px; }
-  .day { padding: 12px 0; font-size: 15px; }
-  .btn { padding: 8px 14px; font-size: 13px; }
-}
-/* Dark mode polish (iPad users often use this) */
-@media (prefers-color-scheme: dark) {
-  :root { color-scheme: dark; }
-  html, body { background: #0b1120; color: #e2e8f0; }
-  header.top { background: rgba(15,23,42,.9); border-bottom-color: #1e293b; }
-  .card, .ex { background: #111827; box-shadow: 0 0 0 1px #1e293b; }
-  .meta, .subtle, .ex-meta, .notes, .swap-note { color: #94a3b8; }
-  .btn { background: #1e293b; border-color: #334155; color: #e2e8f0; }
-  .btn:hover { background: #334155; }
-  .tab { background: #1e293b; color: #cbd5e1; }
-  .day { background: #111827; color: #cbd5e1; box-shadow: 0 0 0 1px #334155 inset; }
-  .day.active { background: #e2e8f0; color: #0b1120; }
-  .warm { background: #1c1917; border-color: #78350f; }
-  .warm > button, .warm .body { color: #fde68a; }
-  .warm table { background: #0b1120; border-color: #78350f; }
-  .warm th { background: #1c1917; }
-  .warm th, .warm td { border-top-color: #78350f; }
-  .set-row { border-bottom-color: #1e293b; }
-  .sets-head { border-bottom-color: #1e293b; color: #64748b; }
-  .set-row input[type=number] { background: #0b1120; border-color: #334155; color: #e2e8f0; }
-  .pill { background: #1e1b4b; color: #c7d2fe; border-color: #3730a3; }
-  .superset { background: #1e1b4b33; border-color: #3730a3; }
-  .progress-bar { background: #1e293b; }
-  footer, footer code { color: #64748b; }
-  footer code { background: #1e293b; }
-}
+  /* ============ HEADER ============ */
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(10, 8, 6, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+    padding-top: var(--safe-top);
+  }
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0 12px;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent-soft);
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand-text .t1 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .brand-text .t2 {
+    font-size: 10px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-top: 2px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .actions {
+    display: flex;
+    gap: 6px;
+  }
+  .btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--line);
+    color: var(--ink-2);
+    background: transparent;
+    letter-spacing: -0.01em;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--bg-2); color: var(--ink); border-color: var(--line-strong); }
+  .btn.danger { color: #E8806B; border-color: rgba(232, 128, 107, 0.2); }
+  .btn.danger:hover { background: rgba(232, 128, 107, 0.08); border-color: rgba(232, 128, 107, 0.35); }
+  .btn.primary {
+    background: var(--accent);
+    color: #1A0E05;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .btn.primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+
+  /* ============ WEEK TABS ============ */
+  .weeks {
+    display: flex;
+    gap: 4px;
+    padding: 0 0 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .weeks::-webkit-scrollbar { display: none; }
+  .week-tab {
+    flex: 1;
+    min-width: 100px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-3);
+    text-align: left;
+    line-height: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    transition: all 0.15s;
+  }
+  .week-tab:hover { border-color: var(--line-strong); color: var(--ink-2); }
+  .week-tab .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .week-tab .name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-2);
+    letter-spacing: -0.01em;
+  }
+  .week-tab .sub {
+    font-size: 10px;
+    color: var(--ink-4);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .week-tab.active {
+    background: var(--bg-2);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+  .week-tab.active .num { color: var(--accent); }
+  .week-tab.active .name { color: var(--ink); }
+  .week-tab.active .sub { color: var(--ink-2); }
+
+  /* ============ DAY TABS ============ */
+  .days {
+    display: flex;
+    gap: 8px;
+    padding-bottom: 14px;
+  }
+  .day-tab {
+    flex: 1;
+    padding: 12px 10px;
+    border-radius: 10px;
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    color: var(--ink-2);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    line-height: 1.1;
+  }
+  .day-tab:hover { border-color: var(--line-strong); }
+  .day-tab .letter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-4);
+    letter-spacing: 0.08em;
+  }
+  .day-tab.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .day-tab.active .letter { color: var(--accent); }
+
+  /* ============ MAIN ============ */
+  main.wrap {
+    padding-top: 24px;
+    padding-bottom: calc(60px + var(--safe-bot));
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ============ SUMMARY CARD ============ */
+  .summary {
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .summary::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at 100% 0%, var(--accent-tint) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .summary-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .summary-title {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .summary-title .accent { color: var(--accent); font-weight: 400; }
+  .summary-sub {
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .summary-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .summary-meta strong {
+    font-size: 28px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-family: 'Inter', sans-serif;
+    text-transform: none;
+  }
+  .progress-wrap { margin-top: 20px; position: relative; }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .progress-meta .done { color: var(--ink); }
+  .progress-bar {
+    height: 4px;
+    background: var(--bg-3);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+    border-radius: 999px;
+    transition: width 300ms ease;
+  }
+
+  /* ============ WARMUP ============ */
+  .warm {
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .warm-head {
+    width: 100%;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: background 0.15s;
+  }
+  .warm-head:hover { background: var(--bg-2); }
+  .warm-head-l {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .warm-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--accent-tint);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .warm-head-text .t1 { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .warm-head-text .t2 {
+    font-size: 10px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-top: 2px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .warm-chev {
+    color: var(--ink-3);
+    transition: transform 0.2s ease;
+    font-size: 14px;
+  }
+  .warm-head[data-open="true"] .warm-chev { transform: rotate(90deg); color: var(--accent); }
+  .warm-body {
+    padding: 0 22px 22px;
+    color: var(--ink-2);
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+  }
+  .warm-body.open { display: block; }
+  .warm-body p { margin: 0 0 14px; color: var(--ink-2); }
+  .warm-section-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-3);
+    font-family: 'JetBrains Mono', monospace;
+    margin: 18px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .warm-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .warm-body ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .warm-body ul li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .warm-body ul li:last-child { border-bottom: 0; }
+  .warm-body ul li strong { color: var(--ink); font-weight: 500; }
+  .warm-body ul li span { color: var(--ink-3); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .warm-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .warm-body th, .warm-body td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .warm-body th {
+    background: var(--bg-2);
+    font-weight: 500;
+    color: var(--ink-3);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .warm-body th:first-child, .warm-body td:first-child { border-top-left-radius: 0; }
+  .warm-body td { color: var(--ink-2); }
+  .warm-body .footnote {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--accent-tint);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+
+  /* ============ EXERCISE CARDS ============ */
+  .workout-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 4px 2px;
+    margin-top: 6px;
+  }
+  .workout-header .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .workout-header .count {
+    font-size: 10px;
+    color: var(--ink-4);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.1em;
+  }
+
+  .workout { display: flex; flex-direction: column; gap: 12px; }
+
+  .ex {
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color 0.15s;
+  }
+  .ex:hover { border-color: var(--line-strong); }
+  .ex.all-done {
+    border-color: rgba(127, 191, 127, 0.2);
+    background: linear-gradient(180deg, var(--bg-1) 0%, rgba(127, 191, 127, 0.03) 100%);
+  }
+  .ex-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .ex-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-4);
+    letter-spacing: 0.14em;
+    margin-bottom: 4px;
+  }
+  .ex-title-wrap { flex: 1; min-width: 0; }
+  .ex h4 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .ex-tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 26px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border: 1px solid rgba(255, 107, 26, 0.2);
+    letter-spacing: -0.01em;
+    transition: all 0.15s;
+  }
+  .pill:hover {
+    background: var(--accent);
+    color: #1A0E05;
+    border-color: var(--accent);
+  }
+  .pill svg { width: 11px; height: 11px; }
+  .swap-note {
+    font-size: 11px;
+    color: var(--ink-4);
+    font-style: italic;
+    font-family: 'Inter', sans-serif;
+  }
+  .ex-meta {
+    text-align: right;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 10px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ex-meta .big {
+    font-size: 18px;
+    color: var(--ink);
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    line-height: 1;
+  }
+  .ex-meta .big strong { color: var(--accent); font-weight: 500; }
+  .ex-meta .rest {
+    margin-top: 4px;
+  }
+  .notes {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+    padding: 10px 12px;
+    background: var(--bg-2);
+    border-radius: 8px;
+    border-left: 2px solid var(--line-strong);
+  }
+  .sets {
+    display: flex;
+    flex-direction: column;
+  }
+  .sets-head {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr 70px;
+    gap: 10px;
+    padding: 0 2px 8px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-4);
+    font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+    border-bottom: 1px solid var(--line);
+  }
+  .set-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr 70px;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 2px;
+    border-bottom: 1px solid var(--line);
+    transition: opacity 0.2s;
+  }
+  .set-row:last-child { border-bottom: 0; }
+  .set-row.done { opacity: 0.55; }
+  .set-row .col-set {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-3);
+    letter-spacing: 0.06em;
+  }
+  .set-row.done .col-set { color: var(--good); }
+  .set-row input[type=number] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all 0.15s;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+  .set-row input[type=number]::-webkit-outer-spin-button,
+  .set-row input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .set-row input[type=number]:focus {
+    outline: 0;
+    border-color: var(--accent);
+    background: var(--bg-3);
+    box-shadow: 0 0 0 3px var(--accent-tint);
+  }
+  .set-row input[type=number]::placeholder { color: var(--ink-4); font-weight: 400; }
+
+  .check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    border-radius: 10px;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--ink-4);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .check:hover { border-color: var(--line-strong); color: var(--ink-2); }
+  .check svg { width: 18px; height: 18px; }
+  .check.checked {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #1A0E05;
+  }
+  .check.checked:hover { background: var(--accent-2); }
+
+  /* ============ SUPERSET ============ */
+  .superset {
+    background: var(--bg-1);
+    border: 1px dashed var(--line-strong);
+    border-radius: 16px;
+    padding: 16px;
+    position: relative;
+  }
+  .superset-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .ss-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: #1A0E05;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ss-badge::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 50%;
+  }
+  .superset-note {
+    font-size: 12px;
+    color: var(--ink-3);
+    line-height: 1.5;
+    flex: 1;
+    min-width: 200px;
+  }
+  .superset .ex {
+    background: var(--bg-2);
+    border-style: solid;
+  }
+
+  /* ============ FOOTER ============ */
+  footer.site {
+    padding: 40px 0 calc(20px + var(--safe-bot));
+    color: var(--ink-4);
+    font-size: 11px;
+    line-height: 1.7;
+    text-align: center;
+    border-top: 1px solid var(--line);
+    margin-top: 20px;
+  }
+  footer.site a { color: var(--ink-3); border-bottom: 1px dotted var(--ink-4); }
+  footer.site code {
+    background: var(--bg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (min-width: 900px) {
+    .wrap { max-width: 1100px; padding: 0 28px; }
+    main.wrap {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .summary, .workout-header { grid-column: 1 / -1; }
+    .warm {
+      grid-column: 1;
+      position: sticky;
+      top: calc(180px + var(--safe-top));
+      align-self: start;
+    }
+    .workout { grid-column: 2; }
+    .weeks { padding-bottom: 10px; }
+  }
+
+  /* Larger tap targets on touch */
+  @media (hover: none) and (pointer: coarse) {
+    .btn { padding: 10px 14px; font-size: 13px; }
+    .week-tab { padding: 12px 14px; }
+    .day-tab { padding: 14px 10px; font-size: 14px; }
+    .check { width: 48px; height: 48px; }
+    .pill { height: 30px; padding: 0 12px; font-size: 12px; }
+  }
+
+  /* Tiny screens */
+  @media (max-width: 380px) {
+    .wrap { padding: 0 14px; }
+    .ex { padding: 16px; }
+    .summary { padding: 18px; }
+    .week-tab { min-width: 90px; padding: 8px 10px; }
+    .ex-head { flex-wrap: wrap; }
+    .ex-meta { text-align: left; flex-direction: row; align-items: baseline; gap: 8px; }
+    .set-row, .sets-head { grid-template-columns: 30px 1fr 1fr 56px; gap: 6px; }
+  }
 </style>
 </head>
 <body>
+
 <header class="top">
   <div class="wrap">
-    <div class="row">
-      <div>
-        <h1>10-Week Chest Program</h1>
-        <div class="subtle">Free weights &amp; bench · 3-day split</div>
+    <div class="top-row">
+      <div class="brand">
+        <div class="brand-dot"></div>
+        <div class="brand-text">
+          <div class="t1">Chest Program</div>
+          <div class="t2">10 weeks · 3-day split</div>
+        </div>
       </div>
-      <div style="display:flex; gap:6px;">
-        <button class="btn" data-action="export">Export</button>
-        <label class="btn" style="margin:0;">Import
+      <div class="actions">
+        <button class="btn" data-action="export" title="Export log">Export</button>
+        <label class="btn" style="margin:0; display:inline-flex; align-items:center;" title="Import log">
+          Import
           <input type="file" accept="application/json" data-action="import" style="display:none">
         </label>
-        <button class="btn danger" data-action="reset-day">Reset day</button>
+        <button class="btn danger" data-action="reset-day" title="Clear logged data for this day">Reset</button>
       </div>
     </div>
-    <div id="weekTabs" class="tabs"></div>
+    <div id="weekTabs" class="weeks"></div>
     <div id="dayTabs" class="days"></div>
   </div>
 </header>
 
 <main class="wrap">
-  <section id="summary" class="card"></section>
-  <section id="warmup" class="warm"></section>
-  <section id="workout"></section>
-
-  <footer>
-    Based on the BWS 10-Week Chest Program (3-day split) by Jeremy Ethier.
-    Cable, machine, band and pull-up exercises have been swapped for free-weight/bench alternatives
-    listed in the original PDF (Pull-ups → Barbell Bent-Over Row per your preference).<br>
-    Tutorial links open the illustrated guides hosted alongside this page.<br>
-    Always consult a qualified healthcare professional before starting any programme.
-  </footer>
+  <section id="summary" class="summary"></section>
+  <aside id="warmup" class="warm"></aside>
+  <div class="workout-header">
+    <div class="label">Workout</div>
+    <div class="count" id="exCount"></div>
+  </div>
+  <section id="workout" class="workout"></section>
 </main>
+
+<footer class="site">
+  <div class="wrap">
+    Based on the BWS 10-Week Chest Program (3-day split) by Jeremy Ethier.<br>
+    Cable, machine, band and pull-up exercises swapped for free-weight/bench alternatives (Pull-ups → Barbell Bent-Over Row).<br>
+    Tutorial links open the illustrated guides hosted alongside this page. Progress saved locally under <code>bws-chest-program-free-weights-v1</code>.<br>
+    Always consult a qualified healthcare professional before starting any programme.
+  </div>
+</footer>
 
 <script>
 // =============================================================================
-// DATA
+// DATA (unchanged from original)
 // =============================================================================
 const STORAGE_KEY = "bws-chest-program-free-weights-v1";
 
@@ -245,7 +896,7 @@ const WARMUP = {
     { name: "Weighted External Rotations", reps: "10 per side (light)" },
     { name: "Forward Leg Swings", reps: "5 per side" },
     { name: "Side Leg Swings", reps: "5 per side" },
-    { name: "Deep Squat Hold", reps: "30s hold, rock side to side" },
+    { name: "Deep Squat Hold", reps: "30s, rock side to side" },
     { name: "Dead Bug", reps: "5 per side" },
   ],
   working: [
@@ -532,100 +1183,175 @@ function saveLogs(logs) {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(logs)); } catch {}
 }
 
+// Persist active week/day too
+const UI_KEY = STORAGE_KEY + ":ui";
+function loadUI() {
+  try { return JSON.parse(localStorage.getItem(UI_KEY)) || {}; } catch { return {}; }
+}
+function saveUI() {
+  try { localStorage.setItem(UI_KEY, JSON.stringify({ weekId: state.weekId, day: state.day, warmupOpen: state.warmupOpen })); } catch {}
+}
+
 // =============================================================================
 // STATE
 // =============================================================================
+const savedUI = loadUI();
 const state = {
-  weekId: "1-2",
-  day: "A",
+  weekId: savedUI.weekId || "1-2",
+  day: savedUI.day || "A",
   logs: loadLogs(),
-  warmupOpen: false,
+  warmupOpen: savedUI.warmupOpen || false,
 };
+if (!PROGRAM[state.weekId]) state.weekId = "1-2";
+if (!["A","B","C"].includes(state.day)) state.day = "A";
+
+// =============================================================================
+// ICONS
+// =============================================================================
+const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+const ICON_BOOK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
+const ICON_FLAME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
+const CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
 
 // =============================================================================
 // RENDER
 // =============================================================================
-function renderWeekTabs() {
-  const host = document.getElementById("weekTabs");
-  host.innerHTML = WEEK_BLOCKS.map((w) => (
-    '<button class="tab ' + (w.id === state.weekId ? "active" : "") + '" ' +
-    'data-action="set-week" data-week="' + w.id + '" title="' + esc(w.subtitle) + '">' +
-      esc(w.label) + '<small>' + esc(w.subtitle) + '</small>' +
-    '</button>'
-  )).join("");
-}
-function renderDayTabs() {
-  const host = document.getElementById("dayTabs");
-  host.innerHTML = ["A", "B", "C"].map((d) => (
-    '<button class="day ' + (d === state.day ? "active" : "") + '" data-action="set-day" data-day="' + d + '">Workout ' + d + '</button>'
-  )).join("");
-}
-function renderSummary() {
-  const week = WEEK_BLOCKS.find((w) => w.id === state.weekId);
-  const workout = PROGRAM[state.weekId][state.day];
-  let total = 0, done = 0;
+function countSets(workout) {
+  let total = 0, done = 0, exercises = 0;
   const tally = (items) => items.forEach((it) => {
+    exercises++;
     for (let i = 0; i < it.sets; i++) {
       total++;
       if (state.logs[logKey(state.weekId, state.day, it.name, i, "done")]) done++;
     }
   });
   workout.forEach((b) => (b.kind === "exercise" ? tally([b]) : tally(b.items)));
+  return { total, done, exercises };
+}
+
+function renderWeekTabs() {
+  const host = document.getElementById("weekTabs");
+  host.innerHTML = WEEK_BLOCKS.map((w, i) => (
+    '<button class="week-tab ' + (w.id === state.weekId ? "active" : "") + '" ' +
+    'data-action="set-week" data-week="' + w.id + '" title="' + esc(w.subtitle) + '">' +
+      '<span class="num">W ' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<span class="name">' + esc(w.label) + '</span>' +
+      '<span class="sub">' + esc(w.subtitle) + '</span>' +
+    '</button>'
+  )).join("");
+}
+
+function renderDayTabs() {
+  const host = document.getElementById("dayTabs");
+  const labels = { A: "Chest + pull", B: "Legs + press", C: "Superset + posterior" };
+  host.innerHTML = ["A", "B", "C"].map((d) => {
+    const workout = PROGRAM[state.weekId][d];
+    const { done, total } = countSets(workout);
+    const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+    return (
+      '<button class="day-tab ' + (d === state.day ? "active" : "") + '" data-action="set-day" data-day="' + d + '">' +
+        '<span class="letter">Workout ' + d + '</span>' +
+        '<span>' + esc(labels[d]) + '</span>' +
+        '<span style="font-size:10px;font-family:\'JetBrains Mono\',monospace;color:var(--ink-4);margin-top:2px;letter-spacing:0.06em;">' + pct + '%</span>' +
+      '</button>'
+    );
+  }).join("");
+}
+
+function renderSummary() {
+  const week = WEEK_BLOCKS.find((w) => w.id === state.weekId);
+  const workout = PROGRAM[state.weekId][state.day];
+  const { total, done, exercises } = countSets(workout);
   const pct = total === 0 ? 0 : Math.round((done / total) * 100);
   document.getElementById("summary").innerHTML =
-    '<div class="row" style="align-items:baseline">' +
-      '<h2>' + esc(week.label) + ' · Workout ' + state.day + '</h2>' +
-      '<span class="meta">' + esc(week.subtitle) + ' · Weekly chest volume: ' + week.volume + ' sets</span>' +
+    '<div class="summary-head">' +
+      '<div>' +
+        '<div class="summary-sub">' + esc(week.subtitle) + ' · ' + week.volume + ' chest sets</div>' +
+        '<h2 class="summary-title">' + esc(week.label) + ' <span class="accent">/</span> Workout ' + state.day + '</h2>' +
+      '</div>' +
+      '<div class="summary-meta">' +
+        '<strong>' + pct + '%</strong>' +
+        '<span>complete</span>' +
+      '</div>' +
     '</div>' +
     '<div class="progress-wrap">' +
-      '<div class="progress-meta"><span>' + done + ' of ' + total + ' sets completed</span><span style="font-weight:600">' + pct + '%</span></div>' +
+      '<div class="progress-meta">' +
+        '<span><span class="done">' + done + '</span> / ' + total + ' sets</span>' +
+        '<span>' + exercises + ' exercises</span>' +
+      '</div>' +
       '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>' +
     '</div>';
+  const exCount = document.getElementById("exCount");
+  if (exCount) exCount.textContent = exercises + ' exercises · ' + total + ' sets';
 }
+
 function renderWarmup() {
   const host = document.getElementById("warmup");
-  let html = '<button data-action="toggle-warmup"><span>Warm-up routine ' + (state.warmupOpen ? "▾" : "▸") + '</span><span style="font-size:11px;font-weight:500">~10–15 min</span></button>';
-  if (state.warmupOpen) {
-    html += '<div class="body">';
-    html += '<p style="margin:0">' + esc(WARMUP.cardio) + '</p>';
-    html += '<div><div style="font-weight:600;margin-bottom:4px">Dynamic stretching (~5 min)</div><ul>';
-    WARMUP.mobility.forEach((m) => {
-      html += '<li><strong>' + esc(m.name) + '</strong> — ' + esc(m.reps) + '</li>';
-    });
-    html += '</ul></div>';
-    html += '<div><div style="font-weight:600;margin-bottom:4px">Working warm-up sets (~5 min)</div>';
-    html += '<table><thead><tr><th>Set</th><th>Weight</th><th>Reps</th><th>Rest</th></tr></thead><tbody>';
-    WARMUP.working.forEach((w) => {
-      html += '<tr><td>' + w.set + '</td><td>' + esc(w.weight) + '</td><td>' + esc(w.reps) + '</td><td>' + esc(w.rest) + '</td></tr>';
-    });
-    html += '</tbody></table>';
-    html += '<div style="margin-top:8px;font-style:italic">' + esc(WARMUP.footnote) + '</div></div>';
-    html += '</div>';
-  }
+  let html = '<button class="warm-head" data-action="toggle-warmup" data-open="' + state.warmupOpen + '">' +
+    '<div class="warm-head-l">' +
+      '<div class="warm-icon">' + ICON_FLAME + '</div>' +
+      '<div class="warm-head-text">' +
+        '<div class="t1">Warm-up routine</div>' +
+        '<div class="t2">~10–15 min · do this first</div>' +
+      '</div>' +
+    '</div>' +
+    '<span class="warm-chev">' + CHEV + '</span>' +
+  '</button>';
+  html += '<div class="warm-body' + (state.warmupOpen ? ' open' : '') + '">';
+  html += '<p>' + esc(WARMUP.cardio) + '</p>';
+  html += '<div class="warm-section-title">Dynamic stretching · ~5 min</div>';
+  html += '<ul>';
+  WARMUP.mobility.forEach((m) => {
+    html += '<li><strong>' + esc(m.name) + '</strong><span>' + esc(m.reps) + '</span></li>';
+  });
+  html += '</ul>';
+  html += '<div class="warm-section-title">Working warm-up sets · ~5 min</div>';
+  html += '<table><thead><tr><th>Set</th><th>Weight</th><th>Reps</th><th>Rest</th></tr></thead><tbody>';
+  WARMUP.working.forEach((w) => {
+    html += '<tr><td>' + w.set + '</td><td>' + esc(w.weight) + '</td><td>' + esc(w.reps) + '</td><td>' + esc(w.rest) + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  html += '<div class="footnote">' + esc(WARMUP.footnote) + '</div>';
+  html += '</div>';
   host.innerHTML = html;
 }
 
-function exerciseCardHTML(item) {
+function exerciseCardHTML(item, exIdx) {
   const original = item.name;
   const display = resolve(original);
   const swapped = isSwapped(original);
   const href = tutorialHref(original);
-  let html = '<div class="ex">';
+
+  // all sets done?
+  let doneCount = 0;
+  for (let i = 0; i < item.sets; i++) {
+    if (state.logs[logKey(state.weekId, state.day, original, i, "done")]) doneCount++;
+  }
+  const allDone = doneCount === item.sets && item.sets > 0;
+
+  let html = '<div class="ex' + (allDone ? ' all-done' : '') + '">';
   html += '<div class="ex-head">';
-  html += '<div>';
-  html += '<div class="ex-title">';
+  html += '<div class="ex-title-wrap">';
+  if (exIdx !== undefined) html += '<div class="ex-num">' + String(exIdx).padStart(2, '0') + '</div>';
   html += '<h4>' + esc(display) + '</h4>';
+  html += '<div class="ex-tags">';
   if (href) {
     const tip = swapped ? ("Opens tutorial for original movement (" + original + ")") : "Opens full tutorial with photos";
-    html += '<a class="pill" href="' + esc(href) + '" target="_blank" rel="noopener noreferrer" title="' + esc(tip) + '">📖 Tutorial</a>';
+    html += '<a class="pill" href="' + esc(href) + '" target="_blank" rel="noopener noreferrer" title="' + esc(tip) + '">' + ICON_BOOK + 'Tutorial</a>';
   }
+  if (swapped) html += '<span class="swap-note">free-weight swap · was ' + esc(original) + '</span>';
   html += '</div>';
-  if (swapped) html += '<div class="swap-note">Swapped for free weights (original: ' + esc(original) + ')</div>';
   html += '</div>';
-  html += '<div class="ex-meta"><strong>' + item.sets + '</strong> × <strong>' + esc(item.reps) + '</strong> · Rest ' + esc(item.rest) + '</div>';
+  html += '<div class="ex-meta">' +
+    '<span class="big"><strong>' + item.sets + '</strong> × ' + esc(item.reps) + '</span>' +
+    '<span class="rest">Rest ' + esc(item.rest) + '</span>' +
+  '</div>';
   html += '</div>';
+
   if (item.notes) html += '<p class="notes">' + esc(item.notes) + '</p>';
-  html += '<div><div class="sets-head"><div class="col-set">Set</div><div class="col-w">Weight</div><div class="col-r">Reps</div></div>';
+
+  html += '<div class="sets">';
+  html += '<div class="sets-head"><div>Set</div><div>Weight</div><div>Reps</div><div style="text-align:right">Done</div></div>';
   for (let i = 0; i < item.sets; i++) {
     const wKey = logKey(state.weekId, state.day, original, i, "weight");
     const rKey = logKey(state.weekId, state.day, original, i, "reps");
@@ -633,28 +1359,46 @@ function exerciseCardHTML(item) {
     const w = state.logs[wKey] || "";
     const r = state.logs[rKey] || "";
     const d = !!state.logs[dKey];
-    html += '<div class="set-row">';
+    html += '<div class="set-row' + (d ? ' done' : '') + '">';
     html += '<div class="col-set">' + (i + 1) + '</div>';
     html += '<input type="number" inputmode="decimal" placeholder="kg" value="' + esc(w) + '" data-action="log" data-key="' + esc(wKey) + '" data-field="weight">';
     html += '<input type="number" inputmode="numeric" placeholder="' + esc(item.reps) + '" value="' + esc(r) + '" data-action="log" data-key="' + esc(rKey) + '" data-field="reps">';
-    html += '<label><input type="checkbox" ' + (d ? "checked" : "") + ' data-action="log" data-key="' + esc(dKey) + '" data-field="done"> Done</label>';
+    html += '<button class="check' + (d ? ' checked' : '') + '" data-action="toggle-done" data-key="' + esc(dKey) + '" aria-label="Mark set ' + (i+1) + ' done">' + ICON_CHECK + '</button>';
     html += '</div>';
   }
-  html += '</div></div>';
-  return html;
-}
-function supersetCardHTML(block) {
-  let html = '<div class="superset">';
-  html += '<div class="superset-head"><span class="ss-badge">Superset ' + esc(block.group) + '</span><span>' + esc(block.note) + '</span></div>';
-  html += block.items.map(exerciseCardHTML).join("");
+  html += '</div>';
   html += '</div>';
   return html;
 }
+
+function supersetCardHTML(block, startIdx) {
+  let html = '<div class="superset">';
+  html += '<div class="superset-head">' +
+    '<span class="ss-badge">Superset ' + esc(block.group) + '</span>' +
+    '<span class="superset-note">' + esc(block.note) + '</span>' +
+  '</div>';
+  html += block.items.map((it, i) => exerciseCardHTML(it, startIdx + i)).join("");
+  html += '</div>';
+  return html;
+}
+
 function renderWorkout() {
   const host = document.getElementById("workout");
   const workout = PROGRAM[state.weekId][state.day];
-  host.innerHTML = workout.map((b) => b.kind === "exercise" ? exerciseCardHTML(b) : supersetCardHTML(b)).join("");
+  let idx = 1;
+  host.innerHTML = workout.map((b) => {
+    if (b.kind === "exercise") {
+      const h = exerciseCardHTML(b, idx);
+      idx++;
+      return h;
+    } else {
+      const h = supersetCardHTML(b, idx);
+      idx += b.items.length;
+      return h;
+    }
+  }).join("");
 }
+
 function renderAll() {
   renderWeekTabs();
   renderDayTabs();
@@ -664,7 +1408,7 @@ function renderAll() {
 }
 
 // =============================================================================
-// EVENT HANDLING
+// EVENTS
 // =============================================================================
 document.addEventListener("click", (e) => {
   const t = e.target.closest("[data-action]");
@@ -672,13 +1416,26 @@ document.addEventListener("click", (e) => {
   const a = t.dataset.action;
   if (a === "set-week") {
     state.weekId = t.dataset.week;
+    saveUI();
     renderAll();
   } else if (a === "set-day") {
     state.day = t.dataset.day;
+    saveUI();
     renderAll();
   } else if (a === "toggle-warmup") {
     state.warmupOpen = !state.warmupOpen;
+    saveUI();
     renderWarmup();
+  } else if (a === "toggle-done") {
+    const key = t.dataset.key;
+    const isDone = !!state.logs[key];
+    if (isDone) delete state.logs[key];
+    else state.logs[key] = true;
+    saveLogs(state.logs);
+    // Re-render the current workout + summary + day tabs to update progress
+    renderSummary();
+    renderDayTabs();
+    renderWorkout();
   } else if (a === "reset-day") {
     if (confirm("Clear all logged data for " + state.weekId + ", Workout " + state.day + "?")) {
       const pref = state.weekId + "|" + state.day + "|";
@@ -704,13 +1461,11 @@ document.addEventListener("change", (e) => {
   if (a === "log") {
     const key = t.dataset.key;
     const field = t.dataset.field;
-    let val;
-    if (field === "done") val = t.checked;
-    else val = t.value;
-    if (val === "" || val === false) delete state.logs[key];
+    const val = t.value;
+    if (val === "") delete state.logs[key];
     else state.logs[key] = val;
     saveLogs(state.logs);
-    // Only re-render summary to update progress; inputs keep their focus
+    // Only re-render summary to update — keep input focus
     renderSummary();
   } else if (a === "import") {
     const file = t.files && t.files[0];
